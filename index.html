@@ -1,0 +1,108 @@
+<!-- navbar -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Search Y24</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+
+    <header class="navbar">
+        <div class="logo">Student Search Y24 UG</div>
+    </header>
+
+
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-bar"></div>
+    </div>
+
+
+
+
+
+    <div id="search-page">
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search for profiles......" id="searchInput">
+        </div>
+
+
+
+        <div class="searchcontainer">
+            <div class="sidebar">
+                <h2>Sort By</h2>
+
+
+
+
+                <div class="sort-option">
+                    <button type="button" class="collapsible">
+                        <i class="fa-solid fa-user"></i>Gender <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="sort-option-content">
+                        <ul>
+                            <li><label><input type="checkbox" value="Male" class="genderCheckbox"> Male</label></li>
+                            <li><label><input type="checkbox" value="Female" class="genderCheckbox"> Female</label></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="sort-option">
+                    <button type="button" class="collapsible">
+                        <i class="fas fa-book"></i> Course <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="sort-option-content">
+                    <ul>
+                        <li><label><input type="checkbox" value="CHEMISTRY" class="courseCheckbox">CHEMISTRY</label></li>
+                        <li><label><input type="checkbox" value="ELECTRICAL ENGG." class="courseCheckbox">ELECTRICAL ENGG.</label></li>
+                        <li><label><input type="checkbox" value="MATERIALS SCIENCE & ENGG." class="courseCheckbox">MATERIALS SCIENCE &
+                                ENGG.</label></li>
+                        <li><label><input type="checkbox" value="CHEMICAL ENGG." class="courseCheckbox">CHEMICAL ENGG.</label></li>
+                        <li><label><input type="checkbox" value="MECHANICAL ENGINEERING" class="courseCheckbox">MECHANICAL
+                                ENGINEERING</label></li>
+                        <li><label><input type="checkbox" value="ECONOMICS" class="courseCheckbox">ECONOMICS</label></li>
+                        <li><label><input type="checkbox" value="CIVIL ENGG." class="courseCheckbox">CIVIL ENGG.</label></li>
+                        <li><label><input type="checkbox" value="PHYSICS" class="courseCheckbox">PHYSICS</label></li>
+                        <li><label><input type="checkbox" value="COMPUTER SCIENCE & ENGG." class="courseCheckbox">COMPUTER SCIENCE &
+                                ENGG.</label></li>
+                        <li><label><input type="checkbox" value="MATHEMATICS" class="courseCheckbox">MATHEMATICS</label></li>
+                        <li><label><input type="checkbox" value="BIOL.SCI. AND BIO.ENGG." class="courseCheckbox">BIOL.SCI. AND
+                                BIO.ENGG.</label></li>
+                        <li><label><input type="checkbox" value="AEROSPACE ENGG." class="courseCheckbox">AEROSPACE ENGG.</label></li>
+                        <li><label><input type="checkbox" value="EARTH SCIENCES" class="courseCheckbox">EARTH SCIENCES</label></li>
+                        <li><label><input type="checkbox" value="STATISTICS AND DATA SCIENCE" class="courseCheckbox">STATISTICS AND DATA
+                                SCIENCE</label></li>
+                        <li><label><input type="checkbox" value="PHOTONICS SCIENCE & ENGG." class="courseCheckbox">PHOTONICS SCIENCE &
+                                ENGG.</label></li>
+                    </ul>
+
+                    </div>
+                </div>
+
+
+                <div class="buttons">
+                    <button class="reset-btn" onclick="reset()">Reset</button>
+                </div>
+            </div>
+
+            <div class="profilecontainer" id="results">
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
