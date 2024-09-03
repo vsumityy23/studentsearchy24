@@ -379,3 +379,13 @@
   a {
       text-decoration: none;
   }
+
+ .made-with-love {
+      display: block;
+      font-size: 12px;
+      /* Smaller font size */
+      margin-top: 5px;
+      margin-left: 25px;
+      color: #888;
+
+  }
