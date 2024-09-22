@@ -22,47 +22,82 @@ fetch('data.xlsx')
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////##########################################################################################################################################################////////////////////////////////////////////
 function search() {
-
     const keyword = document.getElementById('searchInput').value.toLowerCase(); // Convert search input to lowercase
 
     // Collect selected course values
     const courseCheckboxes = document.querySelectorAll('.courseCheckbox');
     const selectedCourses = Array.from(courseCheckboxes)
         .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value.toLowerCase()); // Convert to lowercase for comparison
+        .map(checkbox => checkbox.value.toLowerCase());
     const course = selectedCourses.length > 0 ? selectedCourses : [];
 
     // Collect selected gender values
     const genderCheckboxes = document.querySelectorAll('.genderCheckbox');
     const selectedGenders = Array.from(genderCheckboxes)
         .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value.toLowerCase()); // Convert to lowercase for comparison
+        .map(checkbox => checkbox.value.toLowerCase());
     const gender = selectedGenders.length > 0 ? selectedGenders : [];
 
+    // Collect selected wing values
+    const wingCheckboxes = document.querySelectorAll('.wingCheckbox');
+    const selectedWings = Array.from(wingCheckboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value.toLowerCase());
+    const wings = selectedWings.length > 0 ? selectedWings : [];
 
+    console.log("selected wing checkboxes   ",wings)
 
     const filteredData = jsonData.filter(row => {
-        const rollColumn = row[0].toString().toLowerCase(); // Roll number column (converted to string)
-        const nameColumn = row[1].toLowerCase(); // Name column
-        const courseColumn = row[2].toLowerCase(); // Course column
-        const genderColumn = row[4].toLowerCase(); // Gender column
+        const wingColumn = row[5].trim(); // Extract wing column (e.g., '(Hall/Room No.:HALL13,E-411)')
+        const rollColumn = row[0].toString().toLowerCase(); // Roll number
+        const nameColumn = row[1].toLowerCase(); // Name
+        const courseColumn = row[2].toLowerCase(); // Course
+        const genderColumn = row[4].toLowerCase(); // Gender
+
+        console.log("all wings extracted from json data ....",wingColumn)
 
         // Check if the row matches the filters
         const courseMatches = course.length === 0 || course.includes(courseColumn);
         const genderMatches = gender.length === 0 || gender.includes(genderColumn);
+
+        // Wing Matches: Check if wingColumn matches hall and block
+const wingMatches = wings.length === 0 || wings.some(wing => {
+    const [inputHall, inputBlock] = wing.split(',').map(part => part.trim().toLowerCase());
+    
+    // Extract contents within parentheses and split to get hall and room
+    const wingData = wingColumn.match(/\((.*?)\)/)[1]; // Extract contents within parentheses
+    const wingParts = wingData.split(','); // Split by comma
+    const wingHall = wingParts[0].split(':')[1].trim().toLowerCase(); // Extract hall part (after ':')
+    const wingRoom = wingParts[1].trim().toLowerCase(); // Extract room part
+
+    // Check if the hall matches and if the room starts with the input block
+    return wingHall === inputHall && wingRoom.startsWith(inputBlock);
+});
+
+        // console.log("here are wing Matches ...",wingMatches)
+        console.log("here are courese matches ...",wingMatches)
+
         const nameMatches = keyword === '' || nameColumn.includes(keyword) || rollColumn.includes(keyword);
 
-        return courseMatches && genderMatches && nameMatches;
+        return courseMatches && genderMatches && wingMatches && nameMatches;
     });
-
 
     displayuser(filteredData);
 }
 
+
+
+
+
+
 function displayuser(jsonData) {
     const resultsDiv = document.getElementById('results');
     resultsDiv.innerHTML = '';
+    leng=jsonData.length
+    document.getElementById('resultcount').textContent=`${leng} Results`
+
     jsonData.forEach(user => {
+
         const userDiv = document.createElement('div');
         userDiv.classList.add('profile-card');
 
@@ -192,6 +227,11 @@ genderCheckboxes.forEach(checkbox => {
 
 const courseCheckboxes = document.querySelectorAll('.courseCheckbox');
 courseCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', search);
+});
+
+const wingCheckboxes = document.querySelectorAll('.wingCheckbox');
+wingCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', search);
 });
 
